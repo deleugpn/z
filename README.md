@@ -55,3 +55,29 @@ php artisan serve
 ```bash
 composer install && npm install && npm run build && cp .env.example .env && php artisan key:generate && php artisan migrate --force && php artisan db:seed
 ```
+
+## Login
+
+Username: `admin@z.com`
+
+Password: `123`
+
+## Project Assumptions
+
+#### Secure Auth
+
+Laravel standard authentication mechanism implements the bcrypt hashing algorithm and stores it
+on the database alongside uniquely generated salt for the hash. As such, its considered a secure
+authentication mechanism.
+
+#### List of Posts and Follow functionality
+
+Authenticated users are able to see every post, and they can choose to follow an author
+based on a post they see. They're also able to unfollow authors that they are already following.
+
+#### Post notification
+
+When a new post is published, a background job is dispatched which will be responsible for
+collecting all followers of the post's author and notify them of the new post. There is a
+route under `/posts/{post}/notification` which gives a preview of how the notification
+looks like.

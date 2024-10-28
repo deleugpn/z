@@ -21,7 +21,10 @@
           <div class="flex items-center space-x-5">
             <div class="flow-root"></div>
           </div>
-          <div class="flex-shrink-0">
+          <div class="flex-shrink-0 space-x-2">
+            <button v-if="form.id" @click="$emit('post-updated')" type="button" class="inline-flex items-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600">
+              Cancel
+            </button>
             <button class="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
               {{ form.id ? 'Save' : 'Post' }}
             </button>
@@ -55,6 +58,7 @@ const form = useForm({
 const createPost = () => {
   form.put('/posts', {
     preserveScroll: false,
+    preserveState: false,
     onSuccess: () => {
       form.reset();
 

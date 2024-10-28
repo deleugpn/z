@@ -20,7 +20,7 @@
       </div>
     </div>
 
-    <div class="ml-auto pl-3" v-if="post.is_owner">
+    <div class="ml-auto pl-3 flex-shrink-0" v-if="post.is_owner">
       <div class="-mx-1.5 -my-1.5">
         <button v-if="!props.disableEditor" @click="emitStartUpdating(post)" type="button" class="inline-flex rounded-md p-1.5 text-indigo-500 hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2 focus:ring-offset-indigo-50">
           <span class="sr-only">Dismiss</span>
