@@ -4,24 +4,14 @@ namespace App\Jobs;
 
 use App\Models\Follow;
 use App\Models\Post;
-use App\Models\User;
 use App\Notifications\PostPublished;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
+use Illuminate\Support\Facades\Log;
 
 final class NotifyFollowersJob implements ShouldQueue
 {
     use Queueable;
-
-    public function attempts()
-    {
-        return 200;
-    }
-
-    public function delay($delay)
-    {
-        return 2;
-    }
 
     public function __construct(private readonly Post $post) {}
 
@@ -31,6 +21,10 @@ final class NotifyFollowersJob implements ShouldQueue
 
         $this->post->author->followers->each(function (Follow $follower) {
             $follower->user->notify(new PostPublished($this->post));
+
+            $name = $follower->user->name;
+
+            Log::channel('stderr')->info("Notified $name about the new post");
         });
     }
 }

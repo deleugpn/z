@@ -2,8 +2,20 @@
 
 ```bash
 composer install
+
 npm install
+
 npm run build
+
+cp .env.example .env
+
+php artisan key:generate
+
+php artisan migrate --force
+
+php artisan db:seed
+
+php artisan queue:work
+
 php artisan serve
-open http://127.0.0.1:8000
 ```
