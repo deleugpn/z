@@ -6,6 +6,8 @@
         "dev": "vite"
     },
     "devDependencies": {
+        "@headlessui/vue": "^1.7.23",
+        "@heroicons/vue": "^2.1.5",
         "@inertiajs/vue3": "^1.0.0",
         "@tailwindcss/forms": "^0.5.3",
         "@vitejs/plugin-vue": "^5.0.0",
@@ -19,9 +21,5 @@
         "vite": "^5.0",
         "vue": "^3.4.0",
         "vue-tsc": "^2.0.24"
-    },
-    "dependencies": {
-        "@headlessui/vue": "^1.7.23",
-        "@heroicons/vue": "^2.1.5"
     }
 }
