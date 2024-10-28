@@ -22,12 +22,12 @@
 
     <div class="ml-auto pl-3" v-if="post.is_owner">
       <div class="-mx-1.5 -my-1.5">
-        <button v-if="!props.disableEditor" @click="startUpdating(post)" type="button" class="inline-flex rounded-md p-1.5 text-indigo-500 hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2 focus:ring-offset-indigo-50">
+        <button v-if="!props.disableEditor" @click="emitStartUpdating(post)" type="button" class="inline-flex rounded-md p-1.5 text-indigo-500 hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2 focus:ring-offset-indigo-50">
           <span class="sr-only">Dismiss</span>
           <PencilIcon class="h-5 w-5" aria-hidden="true" />
         </button>
 
-        <Link :href="`/posts/${post.id}`" method="DELETE" as="button" type="button" class="inline-flex rounded-md p-1.5 text-red-500 hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2 focus:ring-offset-red-50">
+        <Link :href="`/posts/${post.id}`" method="delete" as="button" type="button" class="inline-flex rounded-md p-1.5 text-red-500 hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2 focus:ring-offset-red-50">
           <span class="sr-only">Dismiss</span>
           <TrashIcon class="h-5 w-5" aria-hidden="true" />
         </Link>
@@ -36,11 +36,11 @@
 
     <div class="ml-auto pl-3" v-else>
       <div class="-mx-1.5 -my-1.5">
-        <Link v-if="post.author.following" :href="`/authors/${post.author.id}/follows`" method="DELETE" as="button" type="button" class="inline-flex rounded-md p-1.5 text-orange-500 hover:bg-orange-50 focus:outline-none focus:ring-2 focus:ring-orange-600 focus:ring-offset-2 focus:ring-offset-orange-50">
+        <Link v-if="post.author.following" :href="`/authors/${post.author.id}/follows`" method="delete" as="button" type="button" class="inline-flex rounded-md p-1.5 text-orange-500 hover:bg-orange-50 focus:outline-none focus:ring-2 focus:ring-orange-600 focus:ring-offset-2 focus:ring-offset-orange-50">
           Unfollow
         </Link>
 
-        <Link v-else :href="`/authors/${post.author.id}/follows`" method="POST" as="button" type="button" class="inline-flex rounded-md p-1.5 text-indigo-500 hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2 focus:ring-offset-indigo-50">
+        <Link v-else :href="`/authors/${post.author.id}/follows`" method="post" as="button" type="button" class="inline-flex rounded-md p-1.5 text-indigo-500 hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2 focus:ring-offset-indigo-50">
           Follow
         </Link>
       </div>
@@ -60,13 +60,15 @@ interface PostDisplayProps {
   disableEditor?: boolean;
 }
 
+interface PostDisplayEmits {
+  (e: 'startUpdating', post: FeedPost): void;
+}
+
 const props = defineProps<PostDisplayProps>();
 
-const emit = defineEmits<{
-  startUpdating: (post: FeedPost) => void;
-}>();
+const emit = defineEmits<PostDisplayEmits>();
 
-const startUpdating = (post: FeedPost) => {
+const emitStartUpdating = (post: FeedPost) => {
   emit('startUpdating', post);
 };
 </script>

@@ -25,21 +25,24 @@
 </template>
 
 <script setup lang="ts">
-import {CheckCircleIcon, XMarkIcon, XCircleIcon, } from '@heroicons/vue/20/solid'
+import {CheckCircleIcon, XCircleIcon, } from '@heroicons/vue/20/solid'
 import {usePage} from "@inertiajs/vue3";
 import {ref, watch} from "vue";
+import {AlertProps} from "@/types";
 
 const page = usePage();
 
-const alerts = ref([])
+const alerts = ref<AlertProps[]>([]);
 
-watch(() => page.props.alert, (alert) => {
-  if (alert) {
-    alerts.value.push(alert)
-
-    setTimeout(() => {
-      alerts.value.shift()
-    }, 5000)
+watch(() => page.props.alert, (alert?: AlertProps) => {
+  if (! alert) {
+    return;
   }
+
+  alerts.value.push(alert);
+
+  setTimeout(() => {
+    alerts.value.shift();
+  }, 5000);
 });
 </script>

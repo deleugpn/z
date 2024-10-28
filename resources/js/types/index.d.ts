@@ -11,11 +11,13 @@ export type PageProps<
     auth: {
         user: User;
     };
-    alert: {
-        type: 'success' | 'error';
-        message: string;
-    }
+    alert: AlertProps;
 };
+
+export interface AlertProps {
+    type: 'success' | 'error';
+    message: string;
+}
 
 export interface PageLinks {
     first: string;
